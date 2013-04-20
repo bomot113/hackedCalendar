@@ -18,21 +18,23 @@ $.get(
 	"test.php",
 	function(data) {
 		var datelimit = data;
+		beforeShowDay: datelimit,
+		$("#datepicker").datepicker({
+			onSelect: function(dateText, inst) {
+				setTimeout( function() {
+					var shortDate = parseInt(dateText.substring(3, 5));
+					if (days[shortDate])
+						days[shortDate]++;
+					else days[shortDate] = 1;
+					$("a.ui-state-active").append("<span>People: " + days[shortDate] + " </span>")
+					}, 5);
+			}
+			
+
+		});
 	}
 );
-$("#datepicker").datepicker({
-	onSelect: function(dateText, inst) {
-		setTimeout( function() {
-			var shortDate = parseInt(dateText.substring(3, 5));
-			if (days[shortDate])
-				days[shortDate]++;
-			else days[shortDate] = 1;
-			$("a.ui-state-active").append("<span>People: " + days[shortDate] + " </span>")
-		}, 5);
-	}
-	beforeShowDay: datelimit;
 
-});
  
  
 </script>
