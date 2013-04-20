@@ -157,7 +157,6 @@ $app_name = idx($app_info, 'name', '');
             function (response) {
               // If response is null the user canceled the dialog
               if (response != null) {
-                $("#sendRequest").submit();
                 logResponse(response);
                 
               }
