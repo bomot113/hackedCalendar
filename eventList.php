@@ -12,7 +12,7 @@
 			  exit();
 			}
 
-			require_once('sdk/facebook.php');
+			require_once('sdk/src/facebook.php');
 
 			$facebook = new Facebook(array(
 			  'appId'  => AppInfo::appID(),
@@ -38,7 +38,6 @@
 					" INNER JOIN hackathon.evUser as evUser".
 					" ON events.eventID = evUser.eventID".
 					" WHERE userID  = $1";
-			echo "The SQL query >" . $stmt . "<\n<p>\n";
 			$query = pg_prepare($db, "my_query", $stmt);
 			$result = pg_execute($db, "my_query", array($user_id));
 			if (!$result) {

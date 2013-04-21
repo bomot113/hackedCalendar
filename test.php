@@ -1,24 +1,33 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title>Facebook Event Planner</title>
-</head>
+<!DOCTYPE html>
+<html xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+  <head>
+    <title>Request Example</title>
+  </head>
 
-<body>
-	<h1>Facebook Event Planner</h1>
-	<form action="" method="post">
-	<p> Date Limit: <input type="text" name="date" value="<?= $date ?>" /> <input type="submit" /></p>
-	</form>
-	<ul>
-	<?php
-		$date = $_GET["date"];
-		$currentDate = date("m/d/Y");
-		$eventarray = $_GET["me/events"];
-		for ($eventarray as $event.name) {
-	?>
-		<li><a href="calendar.html"><?php if ($event.start_date < $date) print $event.name;?></a></li>
-		<?php } ?> 
-	</ul>
-</body>
+  <body>
+ <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '281960611883693',                        // App ID from the app dashboard
+      channelUrl : '//calendar.localhost//channel.html', // Channel file for x-domain comms
+      status     : true,                                 // Check Facebook Login status
+      xfbml      : true                                  // Look for social plugins on the page
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+  <? php echo "hello" ?>
+</script>
+  </body>
 </html>

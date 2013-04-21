@@ -85,10 +85,10 @@ $app_name = idx($app_info, 'name', '');
     <title><?php echo he($app_name); ?></title>
     <link rel="stylesheet" href="stylesheets/screen.css" media="Screen" type="text/css" />
     <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" type="text/css" />
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-    <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-    <link rel="stylesheet" href="http://jqueryui.com/resources/demos/style.css" />
+    <link rel="stylesheet" href="/js/jquery-ui-1.10.2/themes/jquery-ui.min.css" />
+    <script src="/js/jquery-1.9.1.js"></script>
+    <script src="/js/jquery-ui-1.10.2/ui/jquery-ui.js"></script>
+    <link rel="stylesheet" href="/js/jquery-ui-1.10.2/demos/demos.css" />
 
     <!--[if IEMobile]>
     <link rel="stylesheet" href="mobile.css" media="screen" type="text/css"  />
@@ -158,12 +158,27 @@ $app_name = idx($app_info, 'name', '');
               // If response is null the user canceled the dialog
               if (response != null) {
                 logResponse(response);
-                
+                response.date = $('#datepicker')[0].value;
+                response.title = $('#title')[0].value;
+                updateEvUser(response);
+               
               }
             }
           );
         });
+        function updateEvUser( response )
+        {
+          $.ajax({
+               type: "GET",
+               url: "updateEvUser.php",
+               data: response,
+               success: function(msg,x,y,z){
+                     //window.location.href = "eventList.php";
+                  }
+          });
+        }
       });
+      
     </script>
 
     <!--[if IE]>
@@ -259,7 +274,8 @@ $app_name = idx($app_info, 'name', '');
     <section id="guides" class="clearfix">
      <div>
       <h1>Facebook Event Planner</h1>
-      <form action="test.php">
+      <form id="myform" method="get" action="eventlist.php">
+        <p> Title <input id= "title" type="text" name="title"/> </p>
         <p>Deadline by <input id="datepicker" type="text" name="date" placeholder="mm/dd/yyyy" /></p>
               <a href="#" class="facebook-button apprequests" id="sendRequest" data-message="Test this awesome app">
                 <span class="apprequests">Send Requests</span>
